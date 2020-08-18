@@ -27,8 +27,6 @@ class Cards(
         it.isBurst().not() && it.isBlackJack().not()
     }
 
-    fun isSmallThan(score: Int) = getSumScore() <= score
-
     private fun getAceSum(sum: Int) =
         if (sum + ACE_GAP > Score.BLACKJACK) {
             sum

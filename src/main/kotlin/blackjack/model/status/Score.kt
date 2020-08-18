@@ -18,7 +18,7 @@ data class Score(
 
     private fun isBigScoreThan(number: Int) = number < score
 
-    private fun isSmallScoreThan(number: Int) = number > score
+    fun isSmallScoreThan(number: Int) = number > score
 
     override fun toString() = score.toString()
 

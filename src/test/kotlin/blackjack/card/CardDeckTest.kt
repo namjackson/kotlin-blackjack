@@ -2,7 +2,8 @@ package blackjack.card
 
 import blackjack.model.card.CardDeck
 import blackjack.model.card.CardNumber
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -15,7 +16,7 @@ class CardDeckTest {
         val resultDeck = (1..52).map {
             cardDeck.popCard()
         }
-        Assertions.assertThat(resultDeck.distinct().size).isEqualTo(52)
+        assertThat(resultDeck.distinct().size).isEqualTo(52)
     }
 
     @DisplayName(value = "pop된 카드의 스코어는 1~10 이여야한다.")
@@ -23,7 +24,7 @@ class CardDeckTest {
     fun checkPopTest() {
         val cardDeck = CardDeck()
         val card = cardDeck.popCard()
-        Assertions.assertThat(card.getScore()).isIn(CardNumber.values().map { it.score })
+        assertThat(card.getScore()).isIn(CardNumber.values().map { it.score })
     }
 
     @DisplayName(value = "Player의 Pop하는 카드더미의 카드수는 2장이여야한다.")
@@ -31,7 +32,7 @@ class CardDeckTest {
     fun checkPopPlayerTest() {
         val cardDeck = CardDeck()
         val cardDummy = cardDeck.popPlayerCardDummy()
-        Assertions.assertThat(cardDummy.dummy.size)
+        assertThat(cardDummy.dummy.size)
             .isEqualTo(CardDeck.PLAYER_INIT_CARD_COUNT)
     }
 
@@ -40,7 +41,7 @@ class CardDeckTest {
     fun checkPopDealerTest() {
         val cardDeck = CardDeck()
         val cardDummy = cardDeck.popDealerCardDummy()
-        Assertions.assertThat(cardDummy.dummy.size)
+        assertThat(cardDummy.dummy.size)
             .isEqualTo(CardDeck.DEALER_INIT_CARD_COUNT)
     }
 
@@ -48,7 +49,7 @@ class CardDeckTest {
     @Test
     fun inputNegativeAndNonInteger() {
         val cardPool = CardDeck()
-        Assertions.assertThatExceptionOfType(RuntimeException::class.java)
+        assertThatExceptionOfType(RuntimeException::class.java)
             .isThrownBy {
                 (1..53).map {
                     cardPool.popCard()

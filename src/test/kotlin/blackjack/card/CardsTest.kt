@@ -5,7 +5,7 @@ import blackjack.model.card.CardNumber
 import blackjack.model.card.CardType
 import blackjack.model.card.Cards
 import blackjack.model.status.Score
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -19,7 +19,7 @@ class CardsTest {
             addCard(Card(CardType.DIAMONDS, CardNumber.KING))
         }
 
-        Assertions.assertThat(cards.getScore())
+        assertThat(cards.getScore())
             .isEqualTo(Score(Score.BLACKJACK))
     }
 
@@ -30,7 +30,7 @@ class CardsTest {
             addCard(Card(CardType.CLUBS, CardNumber.ONE))
             addCard(Card(CardType.DIAMONDS, CardNumber.ONE))
         }
-        Assertions.assertThat(cards.getScore())
+        assertThat(cards.getScore())
             .isEqualTo(Score(CardNumber.ONE.score + CardNumber.ONE.score + Cards.ACE_GAP))
     }
 
@@ -42,7 +42,7 @@ class CardsTest {
             addCard(Card(CardType.DIAMONDS, CardNumber.FIVE))
             addCard(Card(CardType.DIAMONDS, CardNumber.SEVEN))
         }
-        Assertions.assertThat(cards.getScore())
+        assertThat(cards.getScore())
             .isEqualTo(Score(CardNumber.FIVE.score + CardNumber.SEVEN.score + CardNumber.ONE.score))
     }
 
@@ -54,7 +54,7 @@ class CardsTest {
             addCard(Card(CardType.DIAMONDS, CardNumber.KING))
             addCard(Card(CardType.DIAMONDS, CardNumber.NINE))
         }
-        Assertions.assertThat(cards.canMoreCard()).isTrue()
+        assertThat(cards.canMoreCard()).isTrue()
     }
 
     @DisplayName(value = "21를 넘은 경우, 카드를 받을 수 없다..")
@@ -65,7 +65,17 @@ class CardsTest {
             addCard(Card(CardType.DIAMONDS, CardNumber.KING))
             addCard(Card(CardType.DIAMONDS, CardNumber.KING))
         }
-        Assertions.assertThat(cards.canMoreCard()).isFalse()
+        assertThat(cards.canMoreCard()).isFalse()
+    }
+
+    @DisplayName(value = "21일 경우, 카드를 받을 수 없다..")
+    @Test
+    fun checkCanMoreCardBlackJack() {
+        val cards = Cards().apply {
+            addCard(Card(CardType.CLUBS, CardNumber.ONE))
+            addCard(Card(CardType.DIAMONDS, CardNumber.KING))
+        }
+        assertThat(cards.canMoreCard()).isFalse()
     }
 
     @DisplayName(value = "21일 경우, 카드를 받을 수 없다..")
