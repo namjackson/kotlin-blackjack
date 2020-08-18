@@ -5,7 +5,7 @@ import blackjack.model.card.CardNumber
 import blackjack.model.card.CardType
 import blackjack.model.card.toCards
 import blackjack.model.player.Dealer
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -20,7 +20,7 @@ class DealerTest {
         ).toCards()
         val dealer = Dealer(cards)
 
-        Assertions.assertThat(dealer.canMoreCard()).isFalse()
+        assertThat(dealer.canMoreCard()).isFalse()
     }
 
     @DisplayName(value = "Player가 16이하일 경우, 카드를 받을수 있다.")
@@ -32,7 +32,7 @@ class DealerTest {
         ).toCards()
         val dealer = Dealer(cards)
 
-        Assertions.assertThat(dealer.canMoreCard()).isTrue()
+        assertThat(dealer.canMoreCard()).isTrue()
     }
 
     @DisplayName(value = "Player가 16보다 클때, 카드를 받지 않는다.")
@@ -44,6 +44,6 @@ class DealerTest {
         ).toCards()
         val dealer = Dealer(cards)
 
-        Assertions.assertThat(dealer.canMoreCard()).isFalse()
+        assertThat(dealer.canMoreCard()).isFalse()
     }
 }

@@ -10,7 +10,7 @@ class Dealer(
 ) {
     override fun canMoreCard() = cards.canMoreCard() and isSmallThanDealerScore()
 
-    private fun isSmallThanDealerScore() = cards.isSmallThan(DEALER_MIN_SCORE)
+    private fun isSmallThanDealerScore() = cards.getScore().isSmallScoreThan(DEALER_MIN_SCORE)
 
     companion object {
         const val NAME = "Dealer"
